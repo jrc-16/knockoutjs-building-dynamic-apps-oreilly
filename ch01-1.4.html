@@ -15,20 +15,22 @@
 			// Self: consistent and reliable access to 'this'
 		  var self = this;
 
+			// Hard coded property used jsut for this example
 		  self.name = 'steve kennedy';
 
 			// Getter: access the name property
 			// Better OOP practice than accesing the name property directly
 		  self.getName = function() {
 		    return self.name;
-
 		  };
 		};
-		ko.applyBindings(viewModel);
 
-		// Create an instance of our ViewModel
-		var VM = new viewModel();
-		VM.getName();
+		// Create an instance of our ViewModel then bind it
+		var vm = new viewModel();
+		ko.applyBindings(vm);
+
+		console.log("Call vm.getName(): ");
+		console.log(vm.getName());
 	</script>
 </body>
 </html>
