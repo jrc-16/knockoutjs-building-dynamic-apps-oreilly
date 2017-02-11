@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+	<h1>Hello <span data-bind="text: name"></span></h1>
+	<script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+	<script>
+	/**
+	 * This is an example of how NOT to bind data.
+	 * Here, i demonstrate that binding too early proves that any changes to
+	 * the program logic will not be executed by the data bound element
+	 */
+
+	 // Define a function declaration
+	 function ViewModel(name) {
+		 // Self: consistent and reliable access to 'this'
+		 // which is in this case is the ViewModel
+		 var self = this;
+
+		 // Bad 1.1: name is undefined! we havnt passed any value in!
+		 self.name = name;
+
+		 // Getter: access the name property
+		 // Better OOP practice than accesing the name property directly
+		 self.getName = function() {
+			 return self.name;
+		 };
+	 }
+
+	 // Bad 1: Here we apply our binding too early
+	 // We essentially bind an undefined value
+	 ko.applyBindings(ViewModel);
+
+	 // Bad 2: We cannot change the data bound element attached
+	 // to the name property as the binding has already been executed
+	 var vm = new ViewModel('Trever McDonald');
+
+	 // Bad 3: THis will print out Trever McDonald as the ViewMode
+	 // name property was sucessfully changed, ofcourse, we're still
+	 // too late to change the data bound element
+	 console.log("Call vm.getName(): ");
+	 console.log(vm.getName());
+
+	</script>
+</body>
+</html>
