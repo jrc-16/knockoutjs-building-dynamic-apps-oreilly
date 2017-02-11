@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+	<!-- The span tag is data bound to the name property -->
+	<h1>Hello <span data-bind="text: name"></span></h1>
+	<script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+	<script>
+	  // Here, we assign our viewModel to a variable
+		var viewModel = function() {
+			// Data in our viewModel (in this case a simple property)
+			this.name = 'Steve Kennedy';
+		};
+		// Bind our viewModel
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>
