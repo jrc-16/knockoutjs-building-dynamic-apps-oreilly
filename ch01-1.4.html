@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+	<h1>Hello <span data-bind="text: name"></span></h1>
+	<script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+	<script>
+	/**
+	 * Object oriented ViewModel
+	 * This ViewModel is akin to an OOP class
+	 */
+		var viewModel = function() {
+			// Self: consistent and reliable access to 'this'
+		  var self = this;
+
+		  self.name = 'steve kennedy';
+
+			// Getter: access the name property
+			// Better OOP practice than accesing the name property directly
+		  self.getName = function() {
+		    return self.name;
+
+		  };
+		};
+		ko.applyBindings(viewModel);
+
+		// Create an instance of our ViewModel
+		var VM = new viewModel();
+		VM.getName();
+	</script>
+</body>
+</html>
