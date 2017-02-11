@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+  <!-- We can call functions/methods from data bindings -->
+  <h1 data-bind='html: getName()'></h1>
+
+  <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+  <script>
+    function ViewModel() {
+      var self = this;
+
+      self.name = 'Jeremy Paxman';
+
+      // Our getter method simply returns the html wrapped
+      // name proeprty
+      self.getName = function() {
+        return 'Hello <em>' + self.name + '</em>!';
+      };
+    };
+
+    var vm = new ViewModel();
+    ko.applyBindings(vm);
+  </script>
+</body>
+</html>
