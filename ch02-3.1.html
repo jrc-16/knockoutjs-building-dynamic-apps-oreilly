@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+  <!--
+		// This example demonstrates how to use the foreach binding
+		// and how to use the $data variable to access the Child Context
+	-->
+		<ul>
+			<!-- ko foreach: books -->
+				<li data-bind="text: $data"></li>
+			<!-- /ko -->
+		</ul>
+
+  <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+  <script>
+		// Parent Context
+    var viewModel = function() {
+      var self = this;
+
+			// Child Context
+			self.books = [
+				'Head First Java',
+				'PHP: Objects, patterns and practice',
+				'JavaScript & jQuery',
+				'Linux pocket guide'
+			];
+    };
+
+    ko.applyBindings(viewModel);
+  </script>
+</body>
+</html>
