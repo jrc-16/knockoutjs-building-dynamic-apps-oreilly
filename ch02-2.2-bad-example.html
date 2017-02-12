@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+  <!--
+		// In this example, we attempt to bind a css class
+		// This however wotn work, as there is no comma after the
+		// curly brace in the style binding value
+	-->
+  <h1 data-bind="
+		text: name,
+		style: { marginBottom: 0, marginTop: '1em' }
+		css: 'myClass' "></h1>
+
+  <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+  <script>
+    function ViewModel() {
+      var self = this;
+
+      self.name = 'Jeremy Paxman';
+
+      // Our getter method simply returns the html wrapped
+      // name proeprty
+      self.getName = function() {
+        return 'Hello <em>' + self.name + '</em>!';
+      };
+    };
+
+    var vm = new ViewModel();
+    ko.applyBindings(vm);
+  </script>
+</body>
+</html>

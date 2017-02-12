@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+	<style media="screen">
+		/**
+		 * CSS class will be used by the CSS binding
+		 */
+		.myClass {
+			color: #fff;
+			background-color: green;
+			padding: 10px;
+		}
+	</style>
+</head>
+<body>
+  <!--
+		// Here we bind 3 different bindings
+		// text binding: adds the name property
+		// style binding: adds the style attr with the declared css properties
+		// css binding: adds the class 'myClass'
+	-->
+  <h1 data-bind="
+		text: name,
+		style: { marginBottom: 0, marginTop: '1em' },
+		css: 'myClass' "></h1>
+
+		<!--
+			// Use the attr binding to bind the id 'myCustomId'
+		-->
+	<p data-bind="
+		text: surName,
+		attr: { id: 'myCustomId' },
+		css: 'myClass'"></p>
+
+  <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+  <script>
+    function ViewModel() {
+      var self = this;
+
+      self.name = 'Jeremy';
+      self.surName = 'Paxman';
+
+      // Our getter method simply returns the html wrapped
+      // name proeprty
+      self.getName = function() {
+        return 'Hello <em>' + self.name + '</em>!';
+      };
+
+			// Surname getter method
+			self.getSurName = function() {
+				return self.surName;
+			};
+
+    };
+
+    var vm = new ViewModel();
+    ko.applyBindings(vm);
+  </script>
+</body>
+</html>
