@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+  <!--
+		// In this bad example, we define an observable variable
+		// but overwrite it with a string
+		// We need to invoke our observable variable like a function
+	-->
+
+  <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+  <script>
+		// To create an observable, assign ko.observable() to a variable
+		var myObservable = ko.observable();
+
+		// We overwrite our observable with a string, which is bad!
+		myObservable = 'Hello'
+
+		// We must invoke the observable in order to use it
+		console.log(myObservable);
+  </script>
+</body>
+</html>

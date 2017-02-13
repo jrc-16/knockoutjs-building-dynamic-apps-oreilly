@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+  <!--
+		// Define an observable variable and invoke it
+	-->
+
+  <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+  <script>
+		// To create an observable, assign ko.observable() to a variable
+		var myObservable = ko.observable();
+
+		// Here we define a Constructor by invoking our
+		// observable and defining a default value
+		myObservable('Hello');
+
+		// We must invoke the observable in order to use it
+		console.log(myObservable);
+  </script>
+</body>
+</html>
