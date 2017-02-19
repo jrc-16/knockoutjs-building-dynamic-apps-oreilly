@@ -2,15 +2,18 @@
 <html>
 <head>
 	<title>Data Binding with KnockoutJS</title>
+	<style>
+		img {
+			width: 100px;
+		}
+	</style>
 </head>
 <body>
   <!--
-		// This example builds on ch03-3.1
+		// This example builds on ch03-3.2
 		// - using 'foreach' binding
 		// - using the $parent Context
-		// This example extends the previous books array to contain additional
-		// information and display it in a table	how to use the foreach binding
-		// and how to use the $data variable to access the Child Context
+		// - using afterRender with the foreach binding
 	-->
 
 	<table>
@@ -19,10 +22,11 @@
 					<th>Title</th>
 					<th>ISBN</th>
 					<th>Published</th>
-			</tr> 
+			</tr>
 		</thead>
-		<tbody data-bind="foreach: books">
+		<tbody data-bind="foreach: { data: books, afterRender: loadImage } ">
 			<tr>
+				<td><img src="images/loading.gif" data-bind="attr: { id: 'image_' + isbn }"></td>
 				<td data-bind="text: title"></td>
 				<td data-bind="text: isbn"></td>
 				<td data-bind="text: $parent.formatDate(publishedDate)"></td>
@@ -30,6 +34,7 @@
 		</tbody>
 	</table>
 
+  <script type='text/javascript' src='jquery.js'></script>
   <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
   <script>
 		// Parent Context
@@ -42,21 +47,25 @@
 					'title' : 'Head First Java',
 					'isbn' : 'HFJ123',
 					'publishedDate' : '2010-01-01',
+					'image' : 'http://www.headfirstlabs.com/Images/hfjava_cover.gif',
 				},
 				{
 					'title' : 'PHP: Objects, patterns and practice',
 					'isbn' : 'POPP123',
 					'publishedDate' : '2011-02-02',
+					'image' : 'https://images-na.ssl-images-amazon.com/images/I/510IpQcpYXL._SX376_BO1,204,203,200_.jpg',
 				},
 				{
 					'title' : 'JavaScript & jQuery',
 					'isbn' : 'JAJ123',
 					'publishedDate' : '2012-03-03',
+					'image' : 'http://01eba9f59936628a9c10-a672e330d72d3d2e689cb64015c1f8c5.r97.cf2.rackcdn.com/javascript-and-jquery-book-cover.png',
 				},
 				{
 					'title' : 'Linux pocket guide',
 					'isbn' : 'LPG123',
 					'publishedDate' : '2013-04-04',
+					'image' : 'https://images-na.ssl-images-amazon.com/images/I/51q4%2B4JvKJL._SX302_BO1,204,203,200_.jpg',
 				}
 			];
 
@@ -84,6 +93,10 @@
 				return months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
 			};
 
+			// use jQuery to load the book cover image for each book
+			self.loadImage = function(element, index, data) {
+				$('#image_' + index.isbn).attr('src', index.image);
+			};
 	}
 		// Use 'new' syntax as opposed to assiging ViewModel to a variable
 		// It appears stickking to thew 'new' syntax allows us use of 'this'
