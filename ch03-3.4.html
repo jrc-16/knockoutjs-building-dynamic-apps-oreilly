@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+	<style>
+		img {
+			width: 100px;
+		}
+	</style>
+</head>
+<body>
+  <!--
+		//
+	-->
+
+		<div id="book" data-bind="with: book">
+			<h1 data-bind="text: title"></h1>
+			<h2>Published on
+				<span data-bind="text: $parent.formatDate(publishedDate)"></span>
+			</h2>
+			<p data-bind="text: synposis"></p>
+		</div>
+
+  <script type='text/javascript' src='jquery.js'></script>
+  <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+  <script>
+		// Parent Context
+  	function ViewModel(book) {
+      var self = this;
+
+			// Child Context
+			self.book = book;
+
+			self.formatDate = function(dateToFormat) {
+				// Use object literal over 'new' syntax:
+				// https://www.sitepoint.com/quick-tip-create-manipulate-arrays-in-javascript/
+				var months = [
+					'Jan',
+					'Feb',
+					'Mar',
+					'Apr',
+					'May',
+					'Jun',
+					'Jul',
+					'Aug',
+					'Sep',
+					'Oct',
+					'Nov',
+					'Dec'
+				];
+
+				// Calling Date() with the 'new' creates a date object
+				// Calling Date() without new creates a string object
+				var d = new Date(dateToFormat);
+				return months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+			};
+		}
+
+		var book = {
+			title: 'Rapid app dev with CakePHP',
+			synopsis: '...',
+			isbn: 'RADCP123',
+			isbn: '2000-10-19'
+		}
+
+		// Use 'new' syntax as opposed to assiging ViewModel to a variable
+		// It appears stickking to thew 'new' syntax allows us use of 'this'
+		// within the ViewModel class, which is an easier way to work than
+		// assigning to a variable
+		// see http://stackoverflow.com/questions/9589419/difference-between-knockout-view-models-declared-as-object-literals-vs-functions
+		var viewModel = new ViewModel(book);
+    ko.applyBindings(viewModel);
+  </script>
+</body>
+</html>
