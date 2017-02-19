@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding with KnockoutJS</title>
+</head>
+<body>
+  <!--
+		// This example builds on ch03-3.1
+		// - using 'foreach' binding
+		// - using the $parent Context
+		// This example extends the previous books array to contain additional
+		// information and display it in a table	how to use the foreach binding
+		// and how to use the $data variable to access the Child Context
+	-->
+
+	<table>
+		<thead>
+			<tr>
+					<th>Title</th>
+					<th>ISBN</th>
+					<th>Published</th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach: books">
+			<tr>
+				<td data-bind="text: title"></td>
+				<td data-bind="text: isbn"></td>
+				<td data-bind="text: $parent.formatDate(publishedDate)"></td>
+			</tr>
+		</tbody>
+	</table>
+
+  <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+  <script>
+		// Parent Context
+  	function ViewModel() {
+      var self = this;
+
+			// Child Context
+			self.books = [
+				{
+					'title' : 'Head First Java',
+					'isbn' : 'HFJ123',
+					'publishedDate' : '2010-01-01',
+				},
+				{
+					'title' : 'PHP: Objects, patterns and practice',
+					'isbn' : 'POPP123',
+					'publishedDate' : '2011-02-02',
+				},
+				{
+					'title' : 'JavaScript & jQuery',
+					'isbn' : 'JAJ123',
+					'publishedDate' : '2012-03-03',
+				},
+				{
+					'title' : 'Linux pocket guide',
+					'isbn' : 'LPG123',
+					'publishedDate' : '2013-04-04',
+				}
+			];
+
+			self.formatDate = function(dateToFormat) {
+				// Use object literal over 'new' syntax:
+				// https://www.sitepoint.com/quick-tip-create-manipulate-arrays-in-javascript/
+				var months = [
+					'Jan',
+					'Feb',
+					'Mar',
+					'Apr',
+					'May',
+					'Jun',
+					'Jul',
+					'Aug',
+					'Sep',
+					'Oct',
+					'Nov',
+					'Dec'
+				];
+
+				// Calling Date() with the 'new' creates a date object
+				// Calling Date() without new creates a string object
+				var d = new Date(dateToFormat);
+				return months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+			};
+
+	}
+		// Use 'new' syntax as opposed to assiging ViewModel to a variable
+		// It appears stickking to thew 'new' syntax allows us use of 'this'
+		// within the ViewModel class, which is an easier way to work than
+		// assigning to a variable
+		// see http://stackoverflow.com/questions/9589419/difference-between-knockout-view-models-declared-as-object-literals-vs-functions
+		var viewModel = new ViewModel();
+    ko.applyBindings(viewModel);
+  </script>
+</body>
+</html>
